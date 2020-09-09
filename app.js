@@ -35,19 +35,52 @@ document.querySelector(".btn-roll").addEventListener("click", function() {
   } else {
     //1 buusan toglogchiig eeljiig ene hesegt solij ogno .
     //ene toglogchiin eeljindee tsuglasan toog 0 bolgon oo
-    roundScore = 0;
-    document.getElementById("current-" + activePlayer).textContent = 0;
-
-    //Toglogchiin eeljiig nogoo tolgoch uruu shiljuulne
-    // herwee idewhtei toglogch ni 0 baiwal 1 bolgo
-    // ugui bol idewhtei toglogchiif 0 bolgo
-    activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
-
-    //Ulaan tsegiig shiljuulekh
-    document.querySelector(".player-0-panel").classList.toggle("active");
-    document.querySelector(".player-1-panel").classList.toggle("active");
-
-    //Shoog tur hide hiine
-    diceDom.style.display = "none";
+    switchToNextPlayer();
   }
+});
+
+// Hold button event Listenner
+document.querySelector(".btn-hold").addEventListener("click", function() {
+  //Ug toglogchiin tsugluulsan eeljnii onoog global onoon deer ni nemj ogno .
+  scores[activePlayer] = scores[activePlayer] + roundScore;
+
+  //Delgets deerkh onoog oorchilno
+  document.getElementById("score-" + activePlayer).textContent =
+    scores[activePlayer];
+
+  //ug toglogch hojson esekhiig shalgakh 100-s ikh bol hojno
+
+  if (scores[activePlayer] >= 10) {
+    //Ylagch gesen textiig nerniih ni orond gargana....
+    document.getElementById("name-" + activePlayer).textContent =
+      "Winner !!!!!!!";
+    document
+      .querySelector(".player-" + activePlayer + "-panel")
+      .classList.add("winner");
+    document
+      .querySelector(".player-" + activePlayer + "-panel")
+      .classList.remove("active");
+  } else {
+    switchToNextPlayer();
+  }
+});
+
+//Ene function ni toglokh daraagiin toglogch ruu shiljuulne
+function switchToNextPlayer() {
+  //ene toglogchiin eeljindee tsuglasan toog 0 bolgon oo
+  roundScore = 0;
+  document.getElementById("current-" + activePlayer).textContent = 0;
+  //Toglogchiin eeljiig nogoo tolgoch uruu shiljuulne
+  activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
+  //Ulaan tsegiig shiljuulekh
+  document.querySelector(".player-0-panel").classList.toggle("active");
+  document.querySelector(".player-1-panel").classList.toggle("active");
+  //Shoog tur hide hiine
+  diceDom.style.display = "none";
+}
+
+// Shine togloom ekhlvvlekh towchnii event listenner
+
+document.querySelector(".btn-new").addEventListener("click", function() {
+  alert("test");
 });
