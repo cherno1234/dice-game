@@ -4,7 +4,8 @@ var isNewGame;
 
 var activePlayer, scores, roundScore;
 //Shoonii zurgiig uzuulekh elementiin Dom-s haij olood ene hadgalay
-var diceDom = document.querySelector(".dice");
+var diceDom = document.querySelector(".dice1");
+var diceDom2 = document.querySelector(".dice2");
 
 //Togloom ekhlvvlne
 
@@ -17,6 +18,7 @@ function initGame() {
   isNewGame = true;
 
   diceDom.style.display = "none";
+  diceDom2.style.display = "none";
   //Toglogchiin eeljiig hadgalakh huwisagch,player 1: 0,player 2:1
   activePlayer = 0;
   //Tolgogchidiin onoog tsugluulakh huwisagch
@@ -49,15 +51,18 @@ document.querySelector(".btn-roll").addEventListener("click", function() {
   if (isNewGame) {
     //1-6 dotorkh sanamsargui toog  garagaj awna
     var diceNumber = Math.floor(Math.random() * 6) + 1;
+    var diceNumber2 = Math.floor(Math.random() * 6) + 1;
     //Shoonii zurgiig web dee gargaj irne
     diceDom.style.display = "block";
+    diceDom2.style.display = "block";
     //Buusan sanamsargui toond hargalzakh shoonii zurgiig web deer gargaj irne.
     diceDom.src = "dice-" + diceNumber + ".png";
+    diceDom2.src = "dice-" + diceNumber2 + ".png";
 
     //Buusan tooog 1-s ylgaatai bol idewehtei toglogchiin eeljiin onoog oorchilnoo
-    if (diceNumber !== 1) {
+    if (diceNumber !== 1 && diceNumber2 !== 1) {
       //1-s ylgaatai too buulaa
-      roundScore = roundScore + diceNumber;
+      roundScore = roundScore + diceNumber + diceNumber2;
       document.getElementById(
         "current-" + activePlayer
       ).textContent = roundScore;
@@ -111,6 +116,7 @@ function switchToNextPlayer() {
   document.querySelector(".player-1-panel").classList.toggle("active");
   //Shoog tur hide hiine
   diceDom.style.display = "none";
+  diceDom2.style.display = "none";
 }
 
 // newgame button buyu Shine togloom ekhlvvlekh towchnii event listenner
